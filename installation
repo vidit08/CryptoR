@@ -1,0 +1,5 @@
+1. install virtualenv
+
+pip install virtualenv
+
+2. pip install requirements.txt
