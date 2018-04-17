@@ -11,7 +11,7 @@ from django.db import models
 
 
 class Value(models.Model):
-    currency_name = models.CharField(max_length=100, blank=True, null=True)
+    currency_name = models.CharField(max_length=100,primary_key = True)
     time = models.DateTimeField(blank=True, null=True)
     quote = models.FloatField(blank=True, null=True)
 
