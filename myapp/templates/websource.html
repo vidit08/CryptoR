@@ -1,0 +1,101 @@
+{% extends "index.html"%}
+{% block header %}
+<style type="text/css">
+        .ratingA{
+            background-color: #28a745;
+            color: white;
+          }
+          .ratingB{
+            background-color: #007bff;
+            color: white;
+          }
+          .ratingC{
+            background-color: #17a2b8;
+            color: white;
+          }
+          .ratingD{
+            background-color: #ffc107;
+            color: white;
+          }
+          .ratingE{
+            background-color: #dc3545;
+            color: white;
+          }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class ="row align-items-center ustify-content-center">
+    <div class="col-md-8 offset-md-2">
+        <table class="table header-fixed source-table"  data-toggle="table" >
+            <thead class="thead-dark">
+                <tr>
+                    <th>Source</th>
+                    <th data-sortable="true">Popularity</th>
+                    <th data-sortable="true">Number of Articles</th>
+                    <th data-sortable="true">Currency Coverage</th>
+                    <th data-sortable="true">Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for key,values in table.items %}
+                <tr>
+                    <td>{{values.name}}</td>
+                    <td class="tiers">{{values.wiki_mentions}}</td>
+                    <td>{{values.articles}}</td>
+                    <td>{{values.currency_coverage}}</td>
+                    <td>{{values.rating}}</td>
+                </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+    var ratingGrade = $('td.tiers');
+    for(let i = 0; i < ratingGrade.length; i++){
+      if($(ratingGrade[i]).text() == "Tier 1"){
+        $(ratingGrade[i]).addClass('ratingA');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 2"){
+        $(ratingGrade[i]).addClass('ratingB');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 3"){
+        $(ratingGrade[i]).addClass('ratingC');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 4"){
+        $(ratingGrade[i]).addClass('ratingD');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 5"){
+        $(ratingGrade[i]).addClass('ratingE');
+      }
+    }
+});
+
+    $('th').click(function(){
+    var ratingGrade = $('td.tiers');
+    for(let i = 0; i < ratingGrade.length; i++){
+      if($(ratingGrade[i]).text() == "Tier 1"){
+        $(ratingGrade[i]).addClass('ratingA');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 2"){
+        $(ratingGrade[i]).addClass('ratingB');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 3"){
+        $(ratingGrade[i]).addClass('ratingC');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 4"){
+        $(ratingGrade[i]).addClass('ratingD');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 5"){
+        $(ratingGrade[i]).addClass('ratingE');
+      }
+    }
+    });
+    </script>
+{% endblock %}

@@ -7,45 +7,125 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    	
-    	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-        <style>
-		.navbar-header {
-		    float: left;
-		    padding: 15px;
-		    text-align: center;
-		    width: 100%;
-		}
-		.navbar-brand {float:none;}
-		      }
-    	</style>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+
+        <!-- Latest compiled and minified Locales -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+   
+
+        {% block header%}
+        {% endblock %}
     </head>
     
     <body>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  	
-    <div class="navbar-header">
-    		<a class=" navbar-brand " href="#">CryptoR</a>
-    </div>
-  	
-	</nav>
+
+            <a class=" navbar-brand " href="{% url 'home' %}">CryptoR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                     <a class="nav-link" href="{% url 'home' %}">Home </a>
+                    </li>
+                    <li class="nav-item">
+                     <a class="nav-link" href="{% url 'sources' %}"> Sources </a>
+                    </li>
+                    <li class="nav-item">
+                     <a class="nav-link" href="{% url 'about' %}">About us </a>
+                    </li>
+                </ul>
+            </div>
+   
+
+    <!-- <ul class="nav justify-content-end navbar-light bg-light">
+      <li class="nav-item">
+        <a class="nav-link active" href="/">Crypto Rating</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Source Rating</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+    </ul> -->
+    
+    </nav>
 
     <!-- Page Content -->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          
-        </div>
-      </div>
+    <div class="container-fluid">
+      
+
+
+            {% block content%}
+
+            {% endblock %}
+      
     </div>
 
 
   </body>
+  <script type="text/javascript">
+      $(document).ready(function(){
+        $('.pagination-detail').remove();
+        // var x = document.getElementsByClassName("page-size");
+        // x[0].innerHTML = "25";
+
+      });
+
+      $('.pagination').click(function(){
+
+        $('.pagination-detail').remove();
+      });
+      // $('.pagination-detail').hide();
+      $('.source-table').bootstrapTable({
+
+                pageSize: 50, //specify 5 here
+                formatRecordsPerPage: function () {
+                    return ''
+                },
+                formatShowingRows: function () {
+                    return ''
+                },
+                onPostBody: function(){
+                  var ratingGrade = $('td.tiers');
+    for(let i = 0; i < ratingGrade.length; i++){
+      if($(ratingGrade[i]).text() == "Tier 1"){
+        $(ratingGrade[i]).addClass('ratingA');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 2"){
+        $(ratingGrade[i]).addClass('ratingB');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 3"){
+        $(ratingGrade[i]).addClass('ratingC');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 4"){
+        $(ratingGrade[i]).addClass('ratingD');
+      }
+      else if($(ratingGrade[i]).text() == "Tier 5"){
+        $(ratingGrade[i]).addClass('ratingE');
+      }
+    }
+                }
+
+    });
+  </script>
+  {% block scripts%}
+  {% endblock %}
 </html>

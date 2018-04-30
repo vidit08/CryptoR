@@ -1,0 +1,156 @@
+{% extends "index.html" %}
+
+
+{% block header %}
+        <style>
+		.navbar-header {
+		    float: left;
+		    padding: 15px;
+		    text-align: center;
+		    width: 100%;
+		}
+		.navbar-brand {float:none;}
+		      }
+          .heat-max.progress-bar{background-color:#e1314e !important; width: 100%}
+          .heat-hot.progress-bar{background-color:#ff829d !important; width: 80%!important }
+          .heat-warm.progress-bar{background-color:#ffd778 !important; width: 60%!important }
+          .heat-cold.progress-bar{background-color:#5eb5ef !important;  width: 40%!important }
+          .ratingA{
+            background-color: #28a745;
+            color: white;
+          }
+          .ratingB{
+            background-color: #007bff;
+            color: white;
+          }
+          .ratingC{
+            background-color: #17a2b8;
+            color: white;
+          }
+          .ratingD{
+            background-color: #ffc107;
+            color: white;
+          }
+          .ratingE{
+            background-color: #dc3545;
+            color: white;
+          }
+    	</style>
+{% endblock %}
+    
+{% block content%}
+      <div class="row align-items-center ustify-content-center">
+          <div class="col col-md-8 offset-md-2">
+                  <table class="table table-bordered">
+                    <tr>
+                      <td class="ratingA">A</td>
+                      <td>Excellent</td>
+                      <td class="ratingB">B</td>
+                      <td>Good</td>
+                      <td class="ratingC">C</td>
+                      <td>Fair</td>
+                      <td class="ratingD">
+                        D
+                      </td>
+                      <td>Weak</td>
+                      <td class="ratingE">
+                        E
+                      </td>
+                      <td>Very Weak</td>
+
+                    </tr>
+                    </table>
+          </div>
+
+      </div>
+             
+   
+    <!-- Page Content -->
+    
+      <div class="row align-items-center ustify-content-center">
+          <div class="col col-md-8 offset-md-2">
+
+            <table id="cryptoTable " class="table table-responsive source-table "   data-toggle="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Rating</th>
+                        <th>Cryptocurrency Name</th>
+                        <th>Price(USD)</th>
+                        <th>Market Cap</th>
+                        <th>24-hr Change</th>
+                        <th>7-Day Change</th>
+                        <th>7-Day Moving Average</th>
+                        <th>Standard Deviation</th>
+                        <th>Coin Heat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for row in responseJSON %}
+                  <tr>
+                      <td class='ratingGrade text-white text-center'>{{row.ratingGrade}}</td>
+                      <td><a href="/currency/{{ row.symbol }}" style="text-decoration: none;">{{row.name}} ({{row.symbol}})</a></td>
+                      <td>{{row.price_usd}}</td>
+                      <td>{{row.market_cap_usd}}</td>
+                      <td>{{row.percent_change_24h}}%</td>
+                      <td>{{row.percent_change_7d}}%</td>
+                      <td>{{row.movingAverage}}</td>
+                      <td>{{row.standardDev}}</td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow={{row.coinheat}} aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+   
+{% endblock %}
+
+  
+
+ {% block scripts %} 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    var progressElems = $('.progress .progress-bar');
+    for(let i = 0; i < progressElems.length; i++){
+      if($(progressElems[i]).attr("aria-valuenow") > 85){
+        $(progressElems[i]).addClass('heat-max');
+      }
+      else if($(progressElems[i]).attr("aria-valuenow") > 65){
+        $(progressElems[i]).addClass('heat-hot');
+      }
+      else if($(progressElems[i]).attr("aria-valuenow") > 45){
+        $(progressElems[i]).addClass('heat-warm');
+      }
+      else{
+        $(progressElems[i]).addClass('heat-cold');
+      }
+    }
+
+    var ratingGrade = $('td.ratingGrade');
+    for(let i = 0; i < ratingGrade.length; i++){
+      if($(ratingGrade[i]).text() == 'A'){
+        $(ratingGrade[i]).addClass('ratingA');
+      }
+      else if($(ratingGrade[i]).text() == 'B'){
+        $(ratingGrade[i]).addClass('ratingB');
+      }
+      else if($(ratingGrade[i]).text() == 'C'){
+        $(ratingGrade[i]).addClass('ratingC');
+      }
+      else if($(ratingGrade[i]).text() == 'D'){
+        $(ratingGrade[i]).addClass('ratingD');
+      }
+      else if($(ratingGrade[i]).text() == 'E'){
+        $(ratingGrade[i]).addClass('ratingE');
+      }
+    }
+
+  })
+  </script>
+{% endblock %}
+</html>
