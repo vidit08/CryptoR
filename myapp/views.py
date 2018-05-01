@@ -12,6 +12,7 @@ import pickle
 
 from cs import currency_source_score
 from rating_web import rate_website
+from updated import updated
 
 class index(TemplateView):
     def get(self, request, **kwargs):
@@ -192,11 +193,11 @@ class sources(TemplateView):
 
 
 		# currency_source_score()
+        updated()
+        with open('source_table_new.json') as fp:
+        	data = json.load(fp)
 
-		with open('source_table.json') as fp:
-			data = json.load(fp)
-
-		return render(request, 'websource.html', {'table' : data })
+        return render(request, 'websource.html', {'table' : data })
 
 
 class about(TemplateView):
