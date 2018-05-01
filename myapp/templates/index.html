@@ -106,19 +106,19 @@
                 onPostBody: function(){
                   var ratingGrade = $('td.tiers');
     for(let i = 0; i < ratingGrade.length; i++){
-      if($(ratingGrade[i]).text() == "Tier 1"){
+      if($(ratingGrade[i]).text() == "5"){
         $(ratingGrade[i]).addClass('ratingA');
       }
-      else if($(ratingGrade[i]).text() == "Tier 2"){
+      else if($(ratingGrade[i]).text() == "4"){
         $(ratingGrade[i]).addClass('ratingB');
       }
-      else if($(ratingGrade[i]).text() == "Tier 3"){
+      else if($(ratingGrade[i]).text() == "3"){
         $(ratingGrade[i]).addClass('ratingC');
       }
-      else if($(ratingGrade[i]).text() == "Tier 4"){
+      else if($(ratingGrade[i]).text() == "2"){
         $(ratingGrade[i]).addClass('ratingD');
       }
-      else if($(ratingGrade[i]).text() == "Tier 5"){
+      else if($(ratingGrade[i]).text() == "1"){
         $(ratingGrade[i]).addClass('ratingE');
       }
     }
