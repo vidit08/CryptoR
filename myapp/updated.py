@@ -209,7 +209,7 @@ def updated():
 			return "1"
 
 	temp_list = {}
-	print(new_dict)			 
+	# print(new_dict)			 
 	index = 0
 	for x in web_list:
 		if str(x[0]) in new_dict:
